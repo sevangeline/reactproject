@@ -6,6 +6,7 @@ var DIST_DIR = path.resolve(__dirname, 'dist');
 
 var config = {
     entry: SRC_DIR + "/app/index.js",
+    mode: "development",
     output: {
         path: DIST_DIR + "/app",
         filename: "bundle.js",
@@ -14,14 +15,17 @@ var config = {
     module: {
         rules: [
             {
-                test: '/\.js$/',
-                include: SRC_DIR,
+                test: /\.jsx?$/,
                 exclude: /node_modules/,
-                loader: "babel-loader",
-                query: {
-                    presets: ['react', 'es2015', 'stage-2']
+                loader: 'babel-loader',
+                options: {
+                    presets : ['es2015', 'react']
                 }
-            }   
+            },
+            {
+                test: /\.html$/,
+                loader: "file?name=[name].[ext]"
+            }
         ]
     }
 };
